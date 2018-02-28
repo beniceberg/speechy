@@ -1,0 +1,44 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: pink;
+  flex: 1;
+  padding: 40px;
+}
+
+.title {
+  border: medium solid black;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.startBtn {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  margin: 20px;
+  font-size: 20px;
+  background-color: rgb(157, 198, 98);
+  justify-content: center;
+}
+
+.stopBtn {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  margin: 20px;
+  font-size: 20px;
+  background-color: rgb(193, 42, 27);
+  justify-content: center;
+}
+
+.video {
+  width: 700px;
+  height: 400px;
+  background-color: rgb(101, 91, 97);
+  padding: 20px;
+  margin:20px;
+}
