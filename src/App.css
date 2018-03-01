@@ -15,6 +15,40 @@
   padding-right: 50px;
 }
 
+.media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.time {
+  width: 20%;
+}
+
+.Video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: yellow;
+}
+
+.video {
+  width: 700px;
+  height: 400px;
+  background-color: rgb(101, 91, 97);
+  padding: 20px;
+  margin:20px;
+  transform: rotateY(180deg);
+}
+
+.VolumeMeter {
+  display: flex;
+  justify-content: center;
+  top: 150px;
+  left: 45%;
+  margin-left: 20px;
+}
+
 .startBtn {
   height: 100px;
   width: 100px;
@@ -33,12 +67,4 @@
   font-size: 20px;
   background-color: rgb(193, 42, 27);
   justify-content: center;
-}
-
-.video {
-  width: 700px;
-  height: 400px;
-  background-color: rgb(101, 91, 97);
-  padding: 20px;
-  margin:20px;
 }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
+import VolumeMeter from './VolumeMeter';
 import Video from './Video';
 import './App.css';
+
 import recognizeMic from 'watson-speech/speech-to-text/recognize-microphone';
 
 class App extends Component {
@@ -36,6 +38,7 @@ class App extends Component {
           console.log(err);
         });
         document.querySelector('#stop').onclick = stream.stop.bind(stream);
+        this.changeDisplay();
       })
       .catch(function(error) {
           console.log(error);
@@ -58,10 +61,14 @@ class App extends Component {
         <div>
           <h3>Practice your speech yo</h3>
         </div>
-        <Video />
+        <div className="media">
+          <div className="time"></div>
+            <Video />
+            <VolumeMeter width="150" height="300"/>
+        </div>
         <button
           className="startBtn"
-          onClick={this.onListenClick} onClick={this.changeDisplay}
+          onClick={this.onListenClick}
           style={{display:this.state.startDisplay ? "flex" : "none"}}>START</button>
         <button
           className="stopBtn"

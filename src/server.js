@@ -50,7 +50,7 @@ if (process.env.VCAP_SERVICES) {
   app.use(secure());
 }
 
-app.use(express.static(__dirname + '/static'));
+// app.use(express.static(__dirname + '/static'));
 app.use(cors());
 
 
@@ -84,7 +84,7 @@ app.use('/api/speech-to-text/token', function(req, res) {
   );
 });
 
-const port = 3002;
+const port = process.env.PORT;
 app.listen(port, function() {
   console.log('Example IBM Watson Speech JS SDK client app & token server live at http://localhost:%s/', port);
 });
