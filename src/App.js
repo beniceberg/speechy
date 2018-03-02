@@ -11,13 +11,14 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      startDisplay: true,
+      recording: false,
       presentation:['This is a start']
     }
   }
 
   // Will be executed once the start button has been clicked
   handleStart = () => {
+    console.log('where is Arol');
     fetch('http://localhost:3002/api/speech-to-text/token')
       .then( response => response.text())
       .then ( (token) => {
@@ -26,14 +27,14 @@ class App extends Component {
           objectMode: true, // send objects instead of text
           extractResults: true, // convert {results: [{alternatives:[...]}], result_index: 0} to {alternatives: [...], index: 0}
           format: false // optional - performs basic formatting on the results such as capitals an periods
-        });
+        })
         stream.on('data', (data) => {
           const pres = this.state.presentation;
-          let newPresentation = pres.length > 0 && pres[pres.length-1].indexOf(data.alternatives[0].transcript) === 0
+          let newPresentation = data.alternatives[0].transcript.indexOf(pres[pres.length-1]) === 0 || pres[pres.length-1].indexOf(data.alternatives[0].transcript) === 0
             ? pres.slice(0,-1)
             : pres
           newPresentation = newPresentation.concat(data.alternatives[0].transcript)
-          console.log('concat', newPresentation);
+          // console.log('concat', newPresentation);
           this.setState({
             ...this.state,
             text: data.alternatives[0].transcript,
@@ -41,22 +42,30 @@ class App extends Component {
           });
           // console.log(data.alternatives[0].transcript);
         });
-        stream.on('error', (err) => console.log(err));
+        stream.on('error', (err) => console.log(err,"Should work"));
         document.querySelector('#stop').onclick = stream.stop.bind(stream);
         this.changeDisplay();
       })
-      .catch( error => console.log(error));
+      .catch( error => console.log(error, "This isnt working"));
   }
 
   // Will be executed once the stop button has been clicked
   handleStop = () => {
-
+    this.changeDisplay();
+    const pres = this.state.presentation;
+    const wordCount = {};
+    const presArr = pres.join(' ').split(' ');
+    presArr.forEach( el => {
+      wordCount[el] ? wordCount[el]++ : wordCount[el] = 1
+    })
+    console.log(wordCount)
   }
 
+  // Will handle changing the button between Start and Stop
   changeDisplay = () => {
     this.setState({
       ...this.state,
-      startDisplay: !this.state.startDisplay
+      recording: !this.state.recording
     })
   }
 
@@ -81,12 +90,12 @@ class App extends Component {
         <button
           className="startBtn"
           onClick={this.handleStart}
-          style={{display:this.state.startDisplay ? "flex" : "none"}}>START</button>
+          style={{display:this.state.recording ? "none" : "flex"}}>START</button>
         <button
           className="stopBtn"
           id="stop"
-          onClick={this.changeDisplay}
-          style={{display:this.state.startDisplay ? "none" : "flex"}}>STOP</button>
+          onClick={this.handleStop}
+          style={{display:this.state.recording ? "flex" : "none"}}>STOP</button>
         <div>{this.state.presentation.join(' ')}</div>
         <button onClick={this.doThis}>show speech</button>
       </div>
