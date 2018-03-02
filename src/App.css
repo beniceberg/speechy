@@ -29,7 +29,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: yellow;
 }
 
 .video {
@@ -49,22 +48,19 @@
   margin-left: 20px;
 }
 
-.startBtn {
+.startBtn, .stopBtn {
   height: 100px;
   width: 100px;
   border-radius: 50px;
   margin: 20px;
   font-size: 20px;
-  background-color: rgb(157, 198, 98);
   justify-content: center;
 }
 
+.startBtn {
+  background-color: rgb(157, 198, 98);
+}
+
 .stopBtn {
-  height: 100px;
-  width: 100px;
-  border-radius: 50px;
-  margin: 20px;
-  font-size: 20px;
   background-color: rgb(193, 42, 27);
-  justify-content: center;
 }

@@ -11,16 +11,16 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      startDisplay: true
+      startDisplay: true,
+      presentation:['This is a start']
     }
   }
 
-  onListenClick = () => {
+  // Will be executed once the start button has been clicked
+  handleStart = () => {
     fetch('http://localhost:3002/api/speech-to-text/token')
-      .then((response) => {
-        return response.text();
-      })
-      .then ((token) => {
+      .then( response => response.text())
+      .then ( (token) => {
         const stream = recognizeMic({
           token: token,
           objectMode: true, // send objects instead of text
@@ -28,21 +28,29 @@ class App extends Component {
           format: false // optional - performs basic formatting on the results such as capitals an periods
         });
         stream.on('data', (data) => {
+          const pres = this.state.presentation;
+          let newPresentation = pres.length > 0 && pres[pres.length-1].indexOf(data.alternatives[0].transcript) === 0
+            ? pres.slice(0,-1)
+            : pres
+          newPresentation = newPresentation.concat(data.alternatives[0].transcript)
+          console.log('concat', newPresentation);
           this.setState({
             ...this.state,
-            text: data.alternatives[0].transcript
-          })
-          console.log(data);
+            text: data.alternatives[0].transcript,
+            presentation: newPresentation
+          });
+          // console.log(data.alternatives[0].transcript);
         });
-        stream.on('error', function(err) {
-          console.log(err);
-        });
+        stream.on('error', (err) => console.log(err));
         document.querySelector('#stop').onclick = stream.stop.bind(stream);
         this.changeDisplay();
       })
-      .catch(function(error) {
-          console.log(error);
-      });
+      .catch( error => console.log(error));
+  }
+
+  // Will be executed once the stop button has been clicked
+  handleStop = () => {
+
   }
 
   changeDisplay = () => {
@@ -50,6 +58,10 @@ class App extends Component {
       ...this.state,
       startDisplay: !this.state.startDisplay
     })
+  }
+
+  doThis = () => {
+    console.log(this.state.presentation)
   }
 
   render() {
@@ -68,14 +80,15 @@ class App extends Component {
         </div>
         <button
           className="startBtn"
-          onClick={this.onListenClick}
+          onClick={this.handleStart}
           style={{display:this.state.startDisplay ? "flex" : "none"}}>START</button>
         <button
           className="stopBtn"
           id="stop"
           onClick={this.changeDisplay}
           style={{display:this.state.startDisplay ? "none" : "flex"}}>STOP</button>
-        <div>{this.state.text}</div>
+        <div>{this.state.presentation.join(' ')}</div>
+        <button onClick={this.doThis}>show speech</button>
       </div>
     );
   }

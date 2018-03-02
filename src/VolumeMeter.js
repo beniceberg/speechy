@@ -1,9 +1,17 @@
 
 import React, { Component } from 'react'
 
+
 class VolumeMeter extends Component {
 
-  componentWillMount () {
+  constructor(props) {
+    super(props)
+    this.state = {
+      volumeOn: false
+    }
+  }
+
+  goVolume = () => {
     navigator.getUserMedia = navigator.getUserMedia ||
       navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia;
@@ -11,8 +19,9 @@ class VolumeMeter extends Component {
       navigator.getUserMedia({
         audio: true
       },
-      function(stream) {
-        const audioContext = new AudioContext();
+      (stream) => {
+        this.audioContext = new AudioContext();
+        const audioContext = this.audioContext;
         const analyser = audioContext.createAnalyser();
         const microphone = audioContext.createMediaStreamSource(stream);
         const javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
@@ -37,7 +46,7 @@ class VolumeMeter extends Component {
 
           var average = values / length;
 
-          // console.log(Math.round(average));
+          console.log(Math.round(average));
 
           canvasContext.clearRect(0, 0, 150, 300);
           canvasContext.fillStyle = '#BadA55';
@@ -56,16 +65,29 @@ class VolumeMeter extends Component {
     }
   }
 
+  onVolume = () => {
+    if (this.state.volumeOn) {
+      this.setState({volumeOn:!this.state.volumeOn});
+      this.audioContext.close();
+    } else {
+      this.setState({volumeOn:!this.state.volumeOn});
+      this.goVolume();
+    }
+  }
+
   render () {
     const { width, height } = this.props
 
     return (
-      <canvas
-        className="VolumeMeter"
-        id="canvas"
-        width={width}
-        height={height}
-      />
+      <div className="VolumeMeter">
+        <canvas
+          id="canvas"
+          width={width}
+          height={height}
+          style={{display: this.state.volumeOn? "flex" : "none"}}
+        />
+        <button onClick={this.onVolume}>volStart</button>
+      </div>
     );
   }
 
