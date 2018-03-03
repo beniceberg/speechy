@@ -1,0 +1,10 @@
+.Timer {
+  display: flex;
+  width: 15%;
+  justify-content: center;
+}
+
+.time {
+  display: flex;
+  font-size: 70px;
+}

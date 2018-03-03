@@ -4,14 +4,12 @@ import React, { Component } from 'react'
 
 class VolumeMeter extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      volumeOn: false
-    }
+  contructor() {
+
   }
 
   goVolume = () => {
+    let count =0;
     navigator.getUserMedia = navigator.getUserMedia ||
       navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia;
@@ -34,19 +32,18 @@ class VolumeMeter extends Component {
         javascriptNode.connect(audioContext.destination);
 
         const canvasContext = document.querySelector("#canvas").getContext("2d");
-        javascriptNode.onaudioprocess = function() {
-          var array = new Uint8Array(analyser.frequencyBinCount);
+        javascriptNode.onaudioprocess = () => {
+          const array = new Uint8Array(analyser.frequencyBinCount);
           analyser.getByteFrequencyData(array);
-          var values = 0;
+          let values = 0;
 
-          var length = array.length;
-          for (var i = 0; i < length; i++) {
+          const length = array.length;
+          for (let i = 0; i < length; i++) {
             values += (array[i]);
           }
 
-          var average = values / length;
-
-          console.log(Math.round(average));
+          const average = values / length;
+          // console.log(count++);
 
           canvasContext.clearRect(0, 0, 150, 300);
           canvasContext.fillStyle = '#BadA55';
@@ -65,14 +62,17 @@ class VolumeMeter extends Component {
     }
   }
 
-  onVolume = () => {
-    if (this.state.volumeOn) {
-      this.setState({volumeOn:!this.state.volumeOn});
-      this.audioContext.close();
-    } else {
-      this.setState({volumeOn:!this.state.volumeOn});
-      this.goVolume();
+  componentWillReceiveProps(nextProps) {
+    // this.props nextProps
+    if (nextProps.recording === this.props.recording) {
+      return
     }
+    if (!this.props.recording) {
+      if (nextProps.recording) return this.goVolume();
+    } else {
+      (nextProps.recording) ? this.audioContext.restart() : this.audioContext.close();
+    }
+
   }
 
   render () {
@@ -84,9 +84,8 @@ class VolumeMeter extends Component {
           id="canvas"
           width={width}
           height={height}
-          style={{display: this.state.volumeOn? "flex" : "none"}}
+          style={{display: this.props.recording ? "flex" : "none"}}
         />
-        <button onClick={this.onVolume}>volStart</button>
       </div>
     );
   }
