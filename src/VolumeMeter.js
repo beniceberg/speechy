@@ -4,12 +4,14 @@ import React, { Component } from 'react'
 
 class VolumeMeter extends Component {
 
-  contructor() {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      volumeArr: []
+    }
   }
 
   goVolume = () => {
-    let count =0;
     navigator.getUserMedia = navigator.getUserMedia ||
       navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia;
@@ -43,7 +45,10 @@ class VolumeMeter extends Component {
           }
 
           const average = values / length;
-          // console.log(count++);
+
+          if (average > 20) {
+            this.setState({volumeArr: this.state.volumeArr.concat(average)})
+          }
 
           canvasContext.clearRect(0, 0, 150, 300);
           canvasContext.fillStyle = '#BadA55';

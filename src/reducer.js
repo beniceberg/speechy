@@ -17,7 +17,8 @@ const presentations = (state = initialState, action) => {
           {
             _id: '_' + Math.random().toString(36).substr(2, 9),
             title: action.title,
-            published_at: (new Date()).toISOString()
+            published_at: (new Date()).toISOString(),
+            try: []
           }
         ]
       };
@@ -26,10 +27,12 @@ const presentations = (state = initialState, action) => {
   }
 }
 
-// Combining both reducers
-const reducers = combineReducers({
-  presentations
-});
+export default presentations;
 
-export default reducers;
+// Combining both reducers
+// const reducers = combineReducers({
+//   presentations
+// });
+
+// export default reducers;
 // REMOVE-END

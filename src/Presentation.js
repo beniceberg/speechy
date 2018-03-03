@@ -84,8 +84,8 @@ class Presentation extends Component {
     })
   }
 
-  doThis = () => {
-    console.log(this.state.presentation)
+  renderTitle() {
+    (this.props.presentations.length > 0) ? this.props.presentations[0].title : "New Presentation"
   }
 
   render() {
@@ -93,7 +93,7 @@ class Presentation extends Component {
     return (
       <div className="Presentation">
         <div className="presTitle">
-          <h1>{this.props.presentations.title}</h1>
+          <h1>{this.renderTitle}</h1>
         </div>
         <div>
           <h3>Practice your speech yo</h3>
@@ -118,7 +118,6 @@ class Presentation extends Component {
           onClick={this.handleStop}
           style={{display:this.state.recording ? "flex" : "none"}}>STOP</button>
         <div>{this.state.presentation.join(' ')}</div>
-        <button onClick={this.doThis}>show speech</button>
       </div>
     );
   }

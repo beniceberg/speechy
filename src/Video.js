@@ -66,6 +66,9 @@ class Video extends Component {
     this.setState({videos});
   }
 
+  componentDidMount() {
+    (this.props.recoring) ? e => this.stopRecording(e) : e => this.startRecording(e)
+  }
 
   render() {
     const {recording, videos} = this.state;
