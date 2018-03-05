@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import * as Actions from './actions';
 
@@ -115,12 +116,18 @@ class Presentation extends Component {
         <button
           className="startBtn"
           onClick={this.handleStart}
-          style={{display:this.state.recording ? "none" : "flex"}}>START</button>
+          style={{display:this.state.recording ? "none" : "flex"}}>
+          START
+        </button>
         <button
           className="stopBtn"
           id="stop"
           onClick={this.handleStop}
-          style={{display:this.state.recording ? "flex" : "none"}}>STOP</button>
+          style={{display:this.state.recording ? "flex" : "none"}}>
+          <Link to={"/new-presentation/details"}>
+            STOP
+          </Link>
+        </button>
         <div>{this.props.presentationText.join(' ')}</div>
         <AttemptsList
           deleteVideo={this.deleteVideo}

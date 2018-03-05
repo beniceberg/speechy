@@ -2,9 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 }
 
 .attemptsList {
   display: flex;
   align-items: flex-start;
+}
+
+.Attempt {
+  margin-right: 30px;
 }

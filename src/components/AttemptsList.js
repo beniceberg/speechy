@@ -4,7 +4,8 @@ import { Attempt } from './Attempt';
 import '../styles/AttemptsList.css';
 
 const renderAttempts = (props) => {
-  return props.videos.map((videoURL, i) => {
+  const videos = props.videos.reverse();
+  return videos.map((videoURL, i) => {
     return <Attempt
       key={`video_${i}`}
       videoURL={videoURL}

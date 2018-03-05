@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './styles/App.css';
 
 import Presentation from './Presentation';
 import Home from './Home';
-import AttemptDetails from './components/AttemptDetails';
+import AttemptDetails from './container/AttemptDetails';
 
 class App extends Component {
   render() {
@@ -20,7 +20,7 @@ class App extends Component {
             <p className='auth-button'><a href='/sign-up'>Sign Up</a></p> */}
           </div>
         </div>
-        <HashRouter>
+        <Router>
           <Switch >
             <Route
               exact={true} path='/'
@@ -41,7 +41,7 @@ class App extends Component {
               )}
             />
           </Switch>
-        </HashRouter>
+        </Router>
       </div>
     );
   }

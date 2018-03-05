@@ -33,7 +33,7 @@ class Home extends React.Component {
           <a
             className="createBtn"
             onClick={this.newPresentation}
-            href="/#/new-presentation">
+            href="/new-presentation">
             CREATE
           </a>
         </div>
