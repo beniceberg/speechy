@@ -1,10 +1,13 @@
 // REMOVE-START
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 
 import * as Actions from './actions'
 
 const initialState ={
-  presentations: []
+  presentations: [],
+  presentationText: ['This is a start'],
+  counter: 0,
+  videos: []
 }
 
 const presentations = (state = initialState, action) => {
@@ -22,6 +25,26 @@ const presentations = (state = initialState, action) => {
           }
         ]
       };
+    case Actions.NEW_PRES_TEXT:
+      return {
+        ...state,
+        presentationText: action.newPresText
+      }
+    case Actions.TIMER_TICK:
+      return {
+        ...state,
+        counter: state.counter + 1
+      }
+    case Actions.ADD_VIDEO:
+      return {
+        ...state,
+        videos: state.videos.concat(action.videoURL)
+      }
+    case Actions.DELETE_VIDEO:
+      return {
+        ...state,
+        videos: state.videos.filter(videoURL => videoURL !== action.videoURL)
+      }
     default:
       return state;
   }

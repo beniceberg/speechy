@@ -30,7 +30,7 @@ class Home extends React.Component {
             onChange={this.handleChange}
             placeholder="Create new presentation ..."
             value={this.state.newPresTile}/>
-          <a 
+          <a
             className="createBtn"
             onClick={this.newPresentation}
             href="/#/new-presentation">

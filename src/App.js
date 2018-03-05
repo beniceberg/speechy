@@ -5,6 +5,7 @@ import './styles/App.css';
 
 import Presentation from './Presentation';
 import Home from './Home';
+import AttemptDetails from './components/AttemptDetails';
 
 class App extends Component {
   render() {
@@ -28,9 +29,15 @@ class App extends Component {
               )}
             />
             <Route
-              exact={false} path='/new-presentation'
+              exact={true} path='/new-presentation'
               render={(props) => (
                 <Presentation/>
+              )}
+            />
+            <Route
+              exact={true} path='/new-presentation/details'
+              render={(props) => (
+                <AttemptDetails/>
               )}
             />
           </Switch>

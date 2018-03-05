@@ -16,9 +16,7 @@ class VolumeMeter extends Component {
       navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia;
     if (navigator.getUserMedia) {
-      navigator.getUserMedia({
-        audio: true
-      },
+      navigator.getUserMedia({audio: true},
       (stream) => {
         this.audioContext = new AudioContext();
         const audioContext = this.audioContext;
@@ -59,9 +57,7 @@ class VolumeMeter extends Component {
 
         } // end fn stream
       },
-      function(err) {
-        console.log("The following error occured: " + err.name)
-      });
+      (err) => console.log("The following error occured: " + err.name));
     } else {
       console.log("getUserMedia not supported");
     }
@@ -82,7 +78,6 @@ class VolumeMeter extends Component {
 
   render () {
     const { width, height } = this.props
-
     return (
       <div className="VolumeMeter">
         <canvas
