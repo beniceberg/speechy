@@ -1,15 +1,10 @@
-
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+
+import * as Actions from './actions';
 
 
 class VolumeMeter extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      volumeArr: []
-    }
-  }
 
   goVolume = () => {
     navigator.getUserMedia = navigator.getUserMedia ||
@@ -45,7 +40,7 @@ class VolumeMeter extends Component {
           const average = values / length;
 
           if (average > 20) {
-            this.setState({volumeArr: this.state.volumeArr.concat(average)})
+            this.props.addVolume(average);
           }
 
           canvasContext.clearRect(0, 0, 150, 300);
@@ -92,4 +87,10 @@ class VolumeMeter extends Component {
 
 }
 
-export default VolumeMeter;
+const mapDispatchToProps = (dispatch) => ({
+  // Map your dispatch actions
+  /* These functions will go through the actions to the reducer function */
+  addVolume: (average) => dispatch(Actions.addVolume(average))
+});
+
+export default connect(null, mapDispatchToProps)(VolumeMeter);

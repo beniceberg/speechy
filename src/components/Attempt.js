@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import trash from '../assets/trash.svg';
 
 export const Attempt = (props) => (
   <div className="Attempt">
     <video
       style={{width: 200}}
-      src={this.props.videoURL} autoPlay loop />
+      src={props.videoURL} autoPlay loop />
     <div>
       <img
         src={trash}
         className="trashLogo"
         alt="logo"
-        onClick={() => this.props.deleteVideo(this.props.videoURL)} />
-      <a href={this.props.videoURL}>Download</a>
+        onClick={() => props.deleteVideo(props.videoURL)} />
+      <a href={props.videoURL}>Download</a>
     </div>
   </div>
 )

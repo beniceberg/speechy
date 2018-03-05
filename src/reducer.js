@@ -7,7 +7,8 @@ const initialState ={
   presentations: [],
   presentationText: ['This is a start'],
   counter: 0,
-  videos: []
+  videos: [],
+  volumes: []
 }
 
 const presentations = (state = initialState, action) => {
@@ -44,6 +45,11 @@ const presentations = (state = initialState, action) => {
       return {
         ...state,
         videos: state.videos.filter(videoURL => videoURL !== action.videoURL)
+      }
+    case Actions.ADD_VOLUME_DATA:
+      return {
+        ...state,
+        volumes: state.volumes.concat(action.average)
       }
     default:
       return state;

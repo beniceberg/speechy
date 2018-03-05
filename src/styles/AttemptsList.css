@@ -1,0 +1,10 @@
+.AttemptsList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.attemptsList {
+  display: flex;
+  align-items: flex-start;
+}

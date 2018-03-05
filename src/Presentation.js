@@ -5,7 +5,7 @@ import * as Actions from './actions';
 
 import VolumeMeter from './VolumeMeter';
 import Video from './Video';
-import AttemptsList from './container/AttemptsList';
+import { AttemptsList } from './components/AttemptsList';
 import { Timer } from './components/Timer';
 
 import recognizeMic from 'watson-speech/speech-to-text/recognize-microphone';
@@ -22,7 +22,7 @@ class Presentation extends Component {
 
   // Title related function
   renderTitle() {
-    (this.props.presentations.length > 0) ? this.props.presentations[0].title : "New Presentation"
+    (this.props.presentations.length > 0) ? <h1>this.props.presentations[0].title</h1> : <h1>"New Presentation"</h1>
   }
 
   // Will be executed once the start button has been clicked
@@ -77,6 +77,12 @@ class Presentation extends Component {
       : this.ticker = setInterval(() => this.props.tick(), 1000)
   }
 
+  // Video related
+  deleteVideo(videoURL) {
+    // filter out current videoURL from the list of saved videos
+    this.props.deleteVideo(videoURL);
+  }
+
   // Will handle changing the button between Start and Stop
   changeRecordingState = () => {
     this.setState({
@@ -91,7 +97,7 @@ class Presentation extends Component {
     return (
       <div className="Presentation">
         <div className="presTitle">
-          <h1>{this.renderTitle()}</h1>
+          {this.renderTitle()}
         </div>
         <div>
           <h3>Practice your speech yo</h3>
@@ -116,7 +122,9 @@ class Presentation extends Component {
           onClick={this.handleStop}
           style={{display:this.state.recording ? "flex" : "none"}}>STOP</button>
         <div>{this.props.presentationText.join(' ')}</div>
-        <AttemptsList />
+        <AttemptsList
+          deleteVideo={this.deleteVideo}
+          videos={this.props.videos}/>
       </div>
     );
   }
@@ -127,13 +135,16 @@ const mapStateToProps = (state) => ({
   /* state.counter comes from the reducer and equals reducer.counter */
   presentations: state.presentations,
   presentationText: state.presentationText,
-  counter: state.counter
+  counter: state.counter,
+  videos: state.videos
 });
+
 const mapDispatchToProps = (dispatch) => ({
   // Map your dispatch actions
   /* These functions will go through the actions to the reducer function */
   addTextToPres: (newPresText) => dispatch(Actions.addTextToPres(newPresText)),
-  tick: () => dispatch(Actions.tick())
+  tick: () => dispatch(Actions.tick()),
+  deleteVideo: (videoURL) => dispatch(Actions.deleteVideo(videoURL))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Presentation);

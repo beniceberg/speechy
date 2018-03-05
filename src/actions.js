@@ -27,3 +27,9 @@ export const deleteVideo = (videoURL) => ({
   type: DELETE_VIDEO,
   videoURL
 });
+
+export const ADD_VOLUME_DATA = 'ADD_VOLUME_DATA';
+export const addVolume = (average) => ({
+  type: ADD_VOLUME_DATA,
+  average
+});

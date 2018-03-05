@@ -6,12 +6,6 @@ import * as Actions from './actions';
 const videoType = 'video/webm';
 
 class Video extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      recording: false
-    };
-  }
 
   showVideo = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
@@ -32,30 +26,29 @@ class Video extends Component {
     };
   }
 
-  startRecording(e) {
-    e.preventDefault();
+  componentWillReceiveProps(nextProps) {
+    if(this.props.recording !== nextProps.recording) {
+      // Recording has changed
+      if(nextProps.recording) this.startRecording();
+      else this.stopRecording();
+    }
+  }
+
+  startRecording() {
     // wipe old data chunks
     this.chunks = [];
     // start recorder with 50ms delay
     this.mediaRecorder.start(50);
-    // say that we're recording
-    this.setState({recording: true});
   }
 
-  pauseRecording(e) {
-    e.preventDefault();
+  pauseRecording() {
     // stop the recorder
     this.mediaRecorder.pause();
-    // say that we're not recording
-    this.setState({recording: false});
   }
 
-  stopRecording(e) {
-    e.preventDefault();
+  stopRecording() {
     // stop the recorder
     this.mediaRecorder.stop();
-    // say that we're not recording
-    this.setState({recording: false});
     // save the video to memory
     this.saveVideo();
   }
@@ -70,7 +63,6 @@ class Video extends Component {
   }
 
   render() {
-    const { recording } = this.state;
 
     return (
       <div className="Video">
@@ -82,10 +74,6 @@ class Video extends Component {
           onClick={this.showVideo}>
           Video stream not available.
         </video>
-        <div>
-          {!recording && <button onClick={e => this.startRecording(e)}>Record</button>}
-          {recording && <button onClick={e => this.stopRecording(e)}>Stop</button>}
-        </div>
       </div>
     );
   }
