@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import * as Actions from './actions';
 
@@ -84,9 +85,12 @@ class Home extends React.Component {
           </blockquote>
         </div>
         <img className="homeImage" src={ted} alt={"ted"} width="100%"/>
-        <PresentationsList
-          presentations={this.props.presentations}
-          deletePresentation={this.deletePresentation}/>
+        <div>
+          <h3 className="recentPresTitle">RECENT PRESENTATIONS:</h3>
+          <PresentationsList
+            presentations={this.props.presentations}
+            deletePresentation={this.deletePresentation}/>
+        </div>
       </div>
     );
   }
@@ -103,4 +107,4 @@ const mapDispatchToProps = (dispatch) => ({
   storePresentations: (presentations) => dispatch(Actions.storePresentations(presentations))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

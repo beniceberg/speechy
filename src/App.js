@@ -24,21 +24,15 @@ class App extends Component {
           <Switch >
             <Route
               exact={true} path='/'
-              render={(props) => (
-                <Home/>
-              )}
+              component={Home}
             />
             <Route
               path='/presentation/:presentationId'
-              render={(props) => (
-                <Presentation/>
-              )}
+              component={Presentation}
             />
             <Route
-              exact={true} path='/presentation/details'
-              render={(props) => (
-                <AttemptDetails/>
-              )}
+              path='/presentation/:presentationId/details'
+              component={AttemptDetails}
             />
           </Switch>
         </Router>

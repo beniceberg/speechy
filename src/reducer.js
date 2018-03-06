@@ -40,11 +40,6 @@ const presentations = (state = initialState, action) => {
         ...state,
         videoURL: action.videoURL
       };
-    case Actions.DELETE_VIDEO:
-      return {
-        ...state,
-        videos: state.videos.filter(videoURL => videoURL !== action.videoURL)
-      };
     case Actions.ADD_VOLUME_DATA:
       return {
         ...state,

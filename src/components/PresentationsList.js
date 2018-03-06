@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../styles/PresentationsList.css';
+
 import { PresentationView } from './PresentationView';
 
 const renderPresentations = (props) => {
@@ -13,9 +15,6 @@ const renderPresentations = (props) => {
 
 export const PresentationsList = (props) => (
   <div className="PresentationsList">
-    <h3>Recent presentations:</h3>
-    <div className="presentationsList">
-      {renderPresentations(props)}
-    </div>
+    {renderPresentations(props)}
   </div>
 )

@@ -9,14 +9,13 @@ const renderAttempts = (props) => {
       return <Attempt
         key={attempt._id}
         attempt={attempt}
-        deleteVideo={props.deleteVideo} />
+        deleteAttempt={props.deleteAttempt} />
     });
   }
 }
 
 export const AttemptsList = (props) => (
   <div className="AttemptsList">
-    <h3>Recent Attempts:</h3>
     <div className="attemptsList">
       {renderAttempts(props)}
     </div>

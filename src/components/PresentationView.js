@@ -5,11 +5,11 @@ import trash from '../assets/trash.svg';
 import moment from 'moment';
 
 export const PresentationView = (props) => (
-  <div className="PresentationsView">
+  <div className="PresentationView">
     <Link to={`/presentation/${props.presentation._id}`} presentation={props.presentation}>
-      <h3>{props.presentation.title}</h3>
+      <h3 className="presTitle">{props.presentation.title}</h3>
       <div className="date">
-        <small>{moment(props.presentation.date).format('MMM Do, h:mm')}</small>
+        CREATED ON <br/><br/> <small>{moment(props.presentation.date).format('MMM Do, h:mm')}</small>
       </div>
     </Link>
     <img

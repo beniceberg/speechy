@@ -11,7 +11,7 @@ export const Attempt = (props) => (
         src={trash}
         className="trashLogo"
         alt="logo"
-        onClick={() => props.deleteVideo(props.attempt._id)} />
+        onClick={() => props.deleteAttempt(props.attempt)} />
       <a href={props.attempt.videoURL}>Download</a>
     </div>
   </div>

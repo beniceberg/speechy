@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 import * as Actions from './actions';
 
@@ -19,11 +19,20 @@ class Presentation extends Component {
       recording: false
     }
     this.ticker = 0;
-    this.presentationId = window.location.href.replace(/(.*)presentation\//g,'');
+    this.presentationId = this.props.match.params.presentationId
+    //this.presentationId = window.location.href.replace(/(.*)presentation\//g,'');
   }
 
   componentDidMount() {
+    console.log('PARAMS:', this.props);
     this.fetchPresentation();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.presentations !== this.props.presentations) {
+      this.props.fetchPresentation();
+      this.renderAttemptsList();
+    }
   }
 
   fetchPresentation = () => {
@@ -47,7 +56,7 @@ class Presentation extends Component {
           format: false // optional - performs basic formatting on the results such as capitals an periods
         })
         stream.on('data', (data) => {
-          const pres = this.props.presentationText;
+          const pres = this.props.speechText;
           let newPresText = data.alternatives[0].transcript.indexOf(pres[pres.length-1]) === 0 || pres[pres.length-1].indexOf(data.alternatives[0].transcript) === 0
             ? pres.slice(0,-1)
             : pres
@@ -68,6 +77,8 @@ class Presentation extends Component {
     this.handleTimer();
     this.changeRecordingState();
     this.saveAttempt();
+    console.log('Geroge cunt')
+    // this.redirect();
   }
 
   // Saving attempt on database
@@ -95,10 +106,13 @@ class Presentation extends Component {
       : this.ticker = setInterval(() => this.props.tick(), 1000)
   }
 
-  // Video related
-  deleteVideo(videoURL) {
+  // Attempt related
+  deleteAttempt = (attempt) => {
     // filter out current videoURL from the list of saved videos
-    this.props.deleteVideo(videoURL);
+    fetch(`http://localhost:3002/presentations/${this.presentationId}/attempts/${attempt._id}`, {
+      method: 'delete'
+    })
+      .then(() => this.fetchPresentation())
   }
 
   // Will handle changing the button between Start and Stop
@@ -108,6 +122,18 @@ class Presentation extends Component {
       recording: !this.state.recording
     })
   }
+
+  renderAttemptsList = () => {
+    return (
+      <AttemptsList
+        deleteAttempt={this.deleteAttempt}
+        attempts={this.props.presentation.attempts} />
+    );
+  }
+
+  // redirect() {
+  //   return (<Redirect to={`/presentation/${this.presentationId}/details`} />);
+  // }
 
   render() {
     return (
@@ -139,14 +165,13 @@ class Presentation extends Component {
           id="stop"
           onClick={this.handleStop}
           style={{display:this.state.recording ? "flex" : "none"}}>
-          <Link to={"/presentation/details"}>
+          <Link to={`/presentation/${this.presentationId}/details`}>
             STOP
           </Link>
         </button>
         <div>{this.props.speechText.join(' ')}</div>
-        <AttemptsList
-          deleteVideo={this.deleteVideo}
-          attempts={this.props.presentation.attempts}/>
+        <h3>Recent Attempts:</h3>
+        {this.renderAttemptsList()}
       </div>
     );
   }

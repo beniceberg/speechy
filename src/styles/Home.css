@@ -59,3 +59,9 @@ input {
   float: right;
   font-size: 30px;
 }
+
+.recentPresTitle {
+  padding-left: 50px;
+  font-size: 30px;
+  color: rgb(240, 235, 234);
+}

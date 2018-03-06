@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import * as Actions from './actions';
 
@@ -93,4 +94,4 @@ const mapDispatchToProps = (dispatch) => ({
   addVolume: (average) => dispatch(Actions.addVolume(average))
 });
 
-export default connect(null, mapDispatchToProps)(VolumeMeter);
+export default withRouter(connect(null, mapDispatchToProps)(VolumeMeter));

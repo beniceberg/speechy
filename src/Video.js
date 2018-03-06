@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import * as Actions from './actions';
 
@@ -86,4 +87,4 @@ const mapDispatchToProps = (dispatch) => ({
   saveVideo: (videoURL) => dispatch(Actions.saveVideo(videoURL))
 });
 
-export default connect(null, mapDispatchToProps)(Video);
+export default withRouter(connect(null, mapDispatchToProps)(Video));

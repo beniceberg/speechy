@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import '../styles/AttemptDetails.css';
 
@@ -69,4 +70,4 @@ const mapStateToProps = (state) => ({
   volumes: state.volumes
 });
 
-export default connect(mapStateToProps, null)(AttemptDetails);
+export default withRouter(connect(mapStateToProps, null)(AttemptDetails));
