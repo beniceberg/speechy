@@ -1,8 +1,14 @@
 
-export const NEW_PRESENTATION = 'NEW_PRESENTATION';
-export const newPresentation = (title) => ({
-  type: NEW_PRESENTATION,
-  title
+export const STORE_PRESENTATIONS = 'STORE_PRESENTATIONS';
+export const storePresentations = (presentations) => ({
+  type: STORE_PRESENTATIONS,
+  presentations
+});
+
+export const STORE_PRESENTATION = 'STORE_PRESENTATION';
+export const storePres = (presentation) => ({
+    type: STORE_PRESENTATION,
+    presentation
 });
 
 export const NEW_PRES_TEXT = 'NEW_PRES_TEXT';

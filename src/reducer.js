@@ -5,52 +5,51 @@ import * as Actions from './actions'
 
 const initialState ={
   presentations: [],
-  presentationText: ['This is a start'],
+  presentation: {},
+  speechText: ['This is a start'],
   counter: 0,
-  videos: [],
+  videoURL: '',
   volumes: []
 }
 
 const presentations = (state = initialState, action) => {
   switch (action.type) {
-    case Actions.NEW_PRESENTATION:
+    case Actions.STORE_PRESENTATIONS:
       return {
         ...state,
-        presentations: [
-          ...state.presentations,
-          {
-            _id: '_' + Math.random().toString(36).substr(2, 9),
-            title: action.title,
-            published_at: (new Date()).toISOString(),
-            try: []
-          }
-        ]
+        presentations: action.presentations
+      };
+    case Actions.STORE_PRESENTATION:
+      console.log('FROM ACTION DISPATCH: ', action.presentation)
+      return {
+        ...state,
+        presentation: action.presentation
       };
     case Actions.NEW_PRES_TEXT:
       return {
         ...state,
-        presentationText: action.newPresText
-      }
+        speechText: action.newPresText
+      };
     case Actions.TIMER_TICK:
       return {
         ...state,
         counter: state.counter + 1
-      }
+      };
     case Actions.ADD_VIDEO:
       return {
         ...state,
-        videos: state.videos.concat(action.videoURL)
-      }
+        videoURL: action.videoURL
+      };
     case Actions.DELETE_VIDEO:
       return {
         ...state,
         videos: state.videos.filter(videoURL => videoURL !== action.videoURL)
-      }
+      };
     case Actions.ADD_VOLUME_DATA:
       return {
         ...state,
         volumes: state.volumes.concat(action.average)
-      }
+      };
     default:
       return state;
   }

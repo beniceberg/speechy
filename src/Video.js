@@ -8,7 +8,7 @@ const videoType = 'video/webm';
 class Video extends Component {
 
   showVideo = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+    const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
     // show it to user
     this.video.srcObject = stream; //  === this.video.src = window.URL.createObjectURL(stream);
     this.video.play();
@@ -71,7 +71,8 @@ class Video extends Component {
           ref={v => {
             this.video = v;
           }}
-          onClick={this.showVideo}>
+          onClick={this.showVideo}
+          muted>
           Video stream not available.
         </video>
       </div>
@@ -79,16 +80,10 @@ class Video extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  // Map your state to props
-  /* state.videos comes from the reducer and equals reducer.videos */
-  videos: state.videos
-});
-
 const mapDispatchToProps = (dispatch) => ({
   // Map your dispatch actions
   /* These functions will go through the actions to the reducer function */
   saveVideo: (videoURL) => dispatch(Actions.saveVideo(videoURL))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Video);
+export default connect(null, mapDispatchToProps)(Video);

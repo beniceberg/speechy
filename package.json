@@ -4,12 +4,14 @@
   "private": true,
   "dependencies": {
     "material-ui": "^0.20.0",
+    "moment": "^2.21.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "video-react": "^0.9.4",
     "watson-speech": "^0.34.1",
     "webpack": "^2.7.0"

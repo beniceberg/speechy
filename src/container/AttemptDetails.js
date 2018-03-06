@@ -9,7 +9,7 @@ class AttemptDetails extends Component {
     super(props);
     this.wordsYouShouldntUse = ['I','me','a little bit','just','talk about','my topic is','been asked to speak about','sorry if','sorry for','excuse the eye chart','start with a story','a funny joke','excuse me','if I seem nervous','not good at public speaking','not a speaker','never done this before','bear with me','moving right along',"didn't have enough time", "that's all I have"];
     this.wordFrequency = {};
-    this.presArray = this.props.presentationText.join(' ').split(' ');
+    this.presArray = this.props.speechText.join(' ').split(' ');
     this.wordCount = this.presArray.length - 4;
     this.wordRate = Math.round(this.wordCount/(this.props.counter/60));
   }
@@ -45,7 +45,7 @@ class AttemptDetails extends Component {
   render() {
     // const wordsYouShouldntUse = []
     // const wordFrequency = {};
-    const presArray = this.props.presentationText.join(' ').split(' ');
+    const presArray = this.props.speechText.join(' ').split(' ');
     presArray.forEach( el => {
       this.wordFrequency[el] ? this.wordFrequency[el]++ : this.wordFrequency[el] = 1
     });
@@ -65,7 +65,7 @@ const mapStateToProps = (state) => ({
   // Map your state to props
   /* state.movies comes from the reducer and equals reducer.movies */
   counter: state.counter,
-  presentationText: state.presentationText,
+  speechText: state.speechText,
   volumes: state.volumes
 });
 

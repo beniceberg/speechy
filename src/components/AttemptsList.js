@@ -4,18 +4,19 @@ import { Attempt } from './Attempt';
 import '../styles/AttemptsList.css';
 
 const renderAttempts = (props) => {
-  const videos = props.videos.reverse();
-  return videos.map((videoURL, i) => {
-    return <Attempt
-      key={`video_${i}`}
-      videoURL={videoURL}
-      deleteVideo={props.deleteVideo} />
-  });
+  if (props.attempts) {
+    return props.attempts.map((attempt) => {
+      return <Attempt
+        key={attempt._id}
+        attempt={attempt}
+        deleteVideo={props.deleteVideo} />
+    });
+  }
 }
 
 export const AttemptsList = (props) => (
   <div className="AttemptsList">
-    <h3>Recorded videos:</h3>
+    <h3>Recent Attempts:</h3>
     <div className="attemptsList">
       {renderAttempts(props)}
     </div>

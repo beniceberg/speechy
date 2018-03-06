@@ -29,13 +29,13 @@ class App extends Component {
               )}
             />
             <Route
-              exact={true} path='/new-presentation'
+              path='/presentation/:presentationId'
               render={(props) => (
                 <Presentation/>
               )}
             />
             <Route
-              exact={true} path='/new-presentation/details'
+              exact={true} path='/presentation/details'
               render={(props) => (
                 <AttemptDetails/>
               )}

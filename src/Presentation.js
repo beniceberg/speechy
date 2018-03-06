@@ -19,17 +19,23 @@ class Presentation extends Component {
       recording: false
     }
     this.ticker = 0;
+    this.presentationId = window.location.href.replace(/(.*)presentation\//g,'');
   }
 
-  // Title related function
-  renderTitle() {
-    (this.props.presentations.length > 0) ? <h1>this.props.presentations[0].title</h1> : <h1>"New Presentation"</h1>
+  componentDidMount() {
+    this.fetchPresentation();
   }
+
+  fetchPresentation = () => {
+    fetch(`http://localhost:3002/presentations/${this.presentationId}`)
+      .then(response => response.json())
+      .then(presentation => this.props.storePres(presentation));
+  }
+
 
   // Will be executed once the start button has been clicked
   handleStart = () => {
     // console.log("State at handleStart",this.state);
-    this.changeRecordingState();
     this.handleTimer();
     fetch('http://localhost:3002/api/speech-to-text/token')
       .then( response => response.text())
@@ -47,27 +53,38 @@ class Presentation extends Component {
             : pres
           newPresText = newPresText.concat(data.alternatives[0].transcript)
           this.props.addTextToPres(newPresText);
-          console.log(data.alternatives[0].transcript)
+          // console.log(data.alternatives[0].transcript)
         });
         // stream.on('end')
         stream.on('error', (err) => console.log(err));
         document.querySelector('#stop').onclick = stream.stop.bind(stream);
       })
       .catch( error => console.log(error));
+    this.changeRecordingState();
   }
 
   // Will be executed once the stop button has been clicked
   handleStop = () => {
     this.handleTimer();
     this.changeRecordingState();
-    const pres = this.props.presentationText;
-    const wordCount = {};
-    const presArr = pres.join(' ').split(' ');
-    presArr.forEach( el => {
-      wordCount[el] ? wordCount[el]++ : wordCount[el] = 1
+    this.saveAttempt();
+  }
+
+  // Saving attempt on database
+  saveAttempt = () => {
+    const videoURL = this.props.videoURL;
+    const speechText = this.props.speechText.join(' ');
+    const time = this.props.counter;
+    const volumeArr = this.props.volumes;
+    fetch(`http://localhost:3002/presentations/${this.presentationId}/attempts`,{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({videoURL, speechText, time, volumeArr})
     })
-    console.log("Each word",wordCount);
-    console.log("Amount of words",presArr.length);
+    .then(response => response.json())
+    .then(() => this.fetchPresentation())
   }
 
   // Timer component related
@@ -92,13 +109,11 @@ class Presentation extends Component {
     })
   }
 
-
   render() {
-    console.log("Initial state",this.props.counter);
     return (
       <div className="Presentation">
         <div className="presTitle">
-          {this.renderTitle()}
+          <h1>{this.props.presentation.title}</h1>
         </div>
         <div>
           <h3>Practice your speech yo</h3>
@@ -124,14 +139,14 @@ class Presentation extends Component {
           id="stop"
           onClick={this.handleStop}
           style={{display:this.state.recording ? "flex" : "none"}}>
-          <Link to={"/new-presentation/details"}>
+          <Link to={"/presentation/details"}>
             STOP
           </Link>
         </button>
-        <div>{this.props.presentationText.join(' ')}</div>
+        <div>{this.props.speechText.join(' ')}</div>
         <AttemptsList
           deleteVideo={this.deleteVideo}
-          videos={this.props.videos}/>
+          attempts={this.props.presentation.attempts}/>
       </div>
     );
   }
@@ -141,9 +156,11 @@ const mapStateToProps = (state) => ({
   // Map your state to props
   /* state.counter comes from the reducer and equals reducer.counter */
   presentations: state.presentations,
-  presentationText: state.presentationText,
+  presentation: state.presentation,
+  speechText: state.speechText,
   counter: state.counter,
-  videos: state.videos
+  videoURL: state.videoURL,
+  volumes: state.volumes
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -151,7 +168,8 @@ const mapDispatchToProps = (dispatch) => ({
   /* These functions will go through the actions to the reducer function */
   addTextToPres: (newPresText) => dispatch(Actions.addTextToPres(newPresText)),
   tick: () => dispatch(Actions.tick()),
-  deleteVideo: (videoURL) => dispatch(Actions.deleteVideo(videoURL))
+  deleteVideo: (videoURL) => dispatch(Actions.deleteVideo(videoURL)),
+  storePres: (pres) => dispatch(Actions.storePres(pres))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Presentation);

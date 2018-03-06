@@ -5,14 +5,14 @@ export const Attempt = (props) => (
   <div className="Attempt">
     <video
       style={{width: 200}}
-      src={props.videoURL} autoPlay loop />
+      src={props.attempt.videoURL} autoPlay loop />
     <div>
       <img
         src={trash}
         className="trashLogo"
         alt="logo"
-        onClick={() => props.deleteVideo(props.videoURL)} />
-      <a href={props.videoURL}>Download</a>
+        onClick={() => props.deleteVideo(props.attempt._id)} />
+      <a href={props.attempt.videoURL}>Download</a>
     </div>
   </div>
 )
