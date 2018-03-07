@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './styles/App.css';
 
-import Presentation from './Presentation';
-import Home from './Home';
+import Presentation from './container/Presentation';
+import Home from './container/Home';
 import AttemptDetails from './container/AttemptDetails';
 
 class App extends Component {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import * as Actions from './actions';
+import * as Actions from '../actions';
 
 
 class VolumeMeter extends Component {
@@ -69,7 +69,6 @@ class VolumeMeter extends Component {
     } else {
       (nextProps.recording) ? this.audioContext.restart() : this.audioContext.close();
     }
-
   }
 
   render () {

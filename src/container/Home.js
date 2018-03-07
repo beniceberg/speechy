@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
-import * as Actions from './actions';
+import * as Actions from '../actions';
 
-import ted from './assets/ted-presentation.jpg';
-import './styles/Home.css';
+import ted from '../assets/ted-presentation.jpg';
+import '../styles/Home.css';
 
-import { PresentationsList } from './components/PresentationsList';
+import { PresentationsList } from '../components/PresentationsList';
 
 class Home extends React.Component {
 

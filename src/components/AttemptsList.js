@@ -9,7 +9,7 @@ const renderAttempts = (props) => {
       return <Attempt
         key={attempt._id}
         attempt={attempt}
-        deleteAttempt={props.deleteAttempt} />
+        deleteAttempt={props.deleteAttempt}/>
     });
   }
 }

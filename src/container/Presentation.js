@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
-import * as Actions from './actions';
+import * as Actions from '../actions';
 
 import VolumeMeter from './VolumeMeter';
 import Video from './Video';
-import { AttemptsList } from './components/AttemptsList';
-import { Timer } from './components/Timer';
+import { AttemptsList } from '../components/AttemptsList';
+import { Timer } from '../components/Timer';
+
+import '../styles/Presentation.css';
 
 import recognizeMic from 'watson-speech/speech-to-text/recognize-microphone';
 
@@ -16,15 +19,14 @@ class Presentation extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      recording: false
+      recording: false,
+      stopped: false
     }
     this.ticker = 0;
     this.presentationId = this.props.match.params.presentationId
-    //this.presentationId = window.location.href.replace(/(.*)presentation\//g,'');
   }
 
   componentDidMount() {
-    console.log('PARAMS:', this.props);
     this.fetchPresentation();
   }
 
@@ -40,7 +42,6 @@ class Presentation extends Component {
       .then(response => response.json())
       .then(presentation => this.props.storePres(presentation));
   }
-
 
   // Will be executed once the start button has been clicked
   handleStart = () => {
@@ -77,8 +78,7 @@ class Presentation extends Component {
     this.handleTimer();
     this.changeRecordingState();
     this.saveAttempt();
-    console.log('Geroge cunt')
-    // this.redirect();
+    this.setState({stopped:true});
   }
 
   // Saving attempt on database
@@ -127,22 +127,26 @@ class Presentation extends Component {
     return (
       <AttemptsList
         deleteAttempt={this.deleteAttempt}
-        attempts={this.props.presentation.attempts} />
+        attempts={this.props.presentation.attempts}
+        stopped={this.state.stopped}
+        presentationId={this.presentationId} />
     );
   }
 
-  // redirect() {
-  //   return (<Redirect to={`/presentation/${this.presentationId}/details`} />);
-  // }
 
   render() {
+
+    // if (this.state.stopped) {
+    //   return (<Redirect to={`/presentation/${this.presentationId}/details`} />);
+    // }
+
     return (
       <div className="Presentation">
-        <div className="presTitle">
+        <div className="presentationTitle">
           <h1>{this.props.presentation.title}</h1>
         </div>
-        <div>
-          <h3>Practice your speech yo</h3>
+        <div className="practiceTitle">
+          <h3>PRACTICE YOUR SEPEECH YO !</h3>
         </div>
         <div className="media">
             <Timer
@@ -165,12 +169,12 @@ class Presentation extends Component {
           id="stop"
           onClick={this.handleStop}
           style={{display:this.state.recording ? "flex" : "none"}}>
-          <Link to={`/presentation/${this.presentationId}/details`}>
+          {/* <Link to={`/presentation/${this.presentationId}/details`}> */}
             STOP
-          </Link>
+          {/* </Link> */}
         </button>
         <div>{this.props.speechText.join(' ')}</div>
-        <h3>Recent Attempts:</h3>
+        <h3 className="recentAttemptsTitle">Recent Attempts:</h3>
         {this.renderAttemptsList()}
       </div>
     );
@@ -197,4 +201,4 @@ const mapDispatchToProps = (dispatch) => ({
   storePres: (pres) => dispatch(Actions.storePres(pres))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Presentation);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Presentation));

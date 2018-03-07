@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import * as Actions from './actions';
+import * as Actions from '../actions';
 
 const videoType = 'video/webm';
 
@@ -27,10 +27,13 @@ class Video extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  async componentWillReceiveProps(nextProps) {
     if(this.props.recording !== nextProps.recording) {
       // Recording has changed
-      if(nextProps.recording) this.startRecording();
+      if(nextProps.recording) {
+        await this.showVideo();
+        this.startRecording();
+      }
       else this.stopRecording();
     }
   }
@@ -61,6 +64,7 @@ class Video extends Component {
     const videoURL = window.URL.createObjectURL(blob);
     // append videoURL to list of saved videos for rendering
     this.props.saveVideo(videoURL);
+    // this.props.saveVideo(blob);
   }
 
   render() {
@@ -72,7 +76,7 @@ class Video extends Component {
           ref={v => {
             this.video = v;
           }}
-          onClick={this.showVideo}
+          // onClick={this.showVideo}
           muted>
           Video stream not available.
         </video>
