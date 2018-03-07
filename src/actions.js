@@ -39,3 +39,9 @@ export const addVolume = (average) => ({
   type: ADD_VOLUME_DATA,
   average
 });
+
+export const STORE_ATTEMPT = 'STORE_ATTEMPT';
+export const storeAttempt = (attempt) => ({
+    type: STORE_ATTEMPT,
+    attempt
+});

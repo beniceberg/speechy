@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import * as Actions from '../actions';
+
+import { WordData } from '../components/WordData';
+import { Playback } from '../components/Playback';
+import { SpeechData } from '../components/SpeechData';
+import { TimeData } from '../components/TimeData';
+
 import '../styles/AttemptDetails.css';
 
 class AttemptDetails extends Component {
@@ -10,53 +17,51 @@ class AttemptDetails extends Component {
     super(props);
     this.wordsYouShouldntUse = ['I','me','a little bit','just','talk about','my topic is','been asked to speak about','sorry if','sorry for','excuse the eye chart','start with a story','a funny joke','excuse me','if I seem nervous','not good at public speaking','not a speaker','never done this before','bear with me','moving right along',"didn't have enough time", "that's all I have"];
     this.wordFrequency = {};
-    this.presArray = this.props.speechText.join(' ').split(' ');
-    this.wordCount = this.presArray.length - 4;
+    this.speechArray = this.props.speechText.join(' ').split(' ');
+    this.wordCount = this.speechArray.length - 4;
     this.wordRate = Math.round(this.wordCount/(this.props.counter/60));
+    this.presentationId = this.props.match.params.presentationId;
+    this.attemptId = this.props.match.params.attemptId;
   }
 
-  renderWordRateSuggestion() {
-    if(this.wordCount === 0) {
-      return(<p>
-        You might have a problem with your microphone, or you haven't said anything.
-      </p>);
-    } else if(this.wordCount < 130) {
-      return(<p>
-        You speak with about {this.wordCount} words per minute.
-        You're under the suggested minimum. Try to speak a bit quicker.
-      </p>);
-    } else if (this.wordCount < 190) {
-      if (this.wordCount < 160) {
-        (this.wordCount === 158)
-          ? <p>Wow, you speak with about {this.wordCount} words per minute. Steve Jobs speaks at this rate!</p>
-          : <p>You speak with about {this.wordCount} words per minute. The average is 160 so you could talk a bit faster if you want.</p>
-      } else if (this.wordCount === 160) {
-        return (<p>Wow, you speak with about {this.wordCount} words per minute. That's a perfect average!</p>);
-      } else {
-        return(<p>You speak with about {this.wordCount} words per minute. The average is 160 so you could talk a bit slower if you want.</p>)
-      }
-    } else {
-      return (<p>
-        You speak with about {this.wordCount} words per minute.
-        You're above the suggested maximum. Try to speak a bit slower.
-      </p>);
-    };
+  componentWillMount() {
+    this.fetchAttempt();
+  }
+
+  fetchAttempt = () => {
+    fetch(`http://localhost:3002/presentations/${this.presentationId}/attempts/${this.attemptId}`)
+      .then(response => response.json())
+      .then(attempt => this.props.storeAttempt(attempt));
+  }
+
+  renderAttempt() {
+    const attempt = this.props.attempt;
+    if(!attempt) return null;
+    return (
+      <div className="attemptDetails">
+        <SpeechData speechText={attempt.speechText} attempt={attempt}/>
+        <div className="wordAndTime">
+          <WordData wordCount={this.wordCount} attempt={attempt}/>
+          <TimeData attempt={attempt}/>
+        </div>
+        <Playback videoURL={attempt.videoURL} attempt={attempt}/>
+      </div>
+    )
   }
 
   render() {
-    // const wordsYouShouldntUse = []
-    // const wordFrequency = {};
-    const presArray = this.props.speechText.join(' ').split(' ');
-    presArray.forEach( el => {
+    const speechArray = this.props.speechText.join(' ').split(' ');
+    speechArray.forEach( el => {
       this.wordFrequency[el] ? this.wordFrequency[el]++ : this.wordFrequency[el] = 1
     });
-    // const wordCount = presArray.length;
-    // const wordRate = wordCount/(this.props.counter/60);
     return (
       <div className="AttemptDetails">
-        <div>
-          {this.renderWordRateSuggestion()}
-        </div>
+        <a href={`/presentation/${this.presentationId}`}>
+          <button className="backBtn">
+            Back to presentation
+          </button>
+        </a>
+        {this.renderAttempt()}
       </div>
     );
   }
@@ -67,7 +72,14 @@ const mapStateToProps = (state) => ({
   /* state.movies comes from the reducer and equals reducer.movies */
   counter: state.counter,
   speechText: state.speechText,
-  volumes: state.volumes
+  volumes: state.volumes,
+  attempt: state.attempt
 });
 
-export default withRouter(connect(mapStateToProps, null)(AttemptDetails));
+const mapDispatchToProps = (dispatch) => ({
+  // Map your dispatch actions
+  /* These functions will go through the actions to the reducer function */
+  storeAttempt: (attempt) => dispatch(Actions.storeAttempt(attempt))
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AttemptDetails));

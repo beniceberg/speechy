@@ -1,5 +1,4 @@
 // REMOVE-START
-// import { combineReducers } from 'redux';
 
 import * as Actions from './actions'
 
@@ -9,7 +8,8 @@ const initialState ={
   speechText: ['This is a start'],
   counter: 0,
   videoURL: '',
-  volumes: []
+  volumes: [],
+  attempt: {}
 }
 
 const presentations = (state = initialState, action) => {
@@ -20,7 +20,6 @@ const presentations = (state = initialState, action) => {
         presentations: action.presentations
       };
     case Actions.STORE_PRESENTATION:
-      console.log('FROM ACTION DISPATCH: ', action.presentation)
       return {
         ...state,
         presentation: action.presentation
@@ -45,17 +44,15 @@ const presentations = (state = initialState, action) => {
         ...state,
         volumes: state.volumes.concat(action.average)
       };
+    case Actions.STORE_ATTEMPT:
+      return {
+        ...state,
+        attempt: action.attempt
+      };
     default:
       return state;
   }
 }
 
 export default presentations;
-
-// Combining both reducers
-// const reducers = combineReducers({
-//   presentations
-// });
-
-// export default reducers;
 // REMOVE-END

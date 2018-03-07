@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
 import * as Actions from '../actions';
@@ -78,7 +77,6 @@ class Presentation extends Component {
     this.handleTimer();
     this.changeRecordingState();
     this.saveAttempt();
-    this.setState({stopped:true});
   }
 
   // Saving attempt on database
@@ -136,10 +134,6 @@ class Presentation extends Component {
 
   render() {
 
-    // if (this.state.stopped) {
-    //   return (<Redirect to={`/presentation/${this.presentationId}/details`} />);
-    // }
-
     return (
       <div className="Presentation">
         <div className="presentationTitle">
@@ -169,9 +163,7 @@ class Presentation extends Component {
           id="stop"
           onClick={this.handleStop}
           style={{display:this.state.recording ? "flex" : "none"}}>
-          {/* <Link to={`/presentation/${this.presentationId}/details`}> */}
             STOP
-          {/* </Link> */}
         </button>
         <div>{this.props.speechText.join(' ')}</div>
         <h3 className="recentAttemptsTitle">Recent Attempts:</h3>

@@ -1,5 +1,55 @@
 .AttemptDetails {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   flex: 1;
+}
+
+.backBtn {
+  margin: 20px;
+  height: 40px;
+  width: auto;
+  border-radius: 10px;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.wordAndTime {
+  display: flex;
+}
+
+.WordData, .TimeData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  background-color: rgba(238, 237, 235, 0.5);
+  font-size: 30px;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 10px;
+}
+
+.SpeechData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* width: 100%; */
+  background-color: rgba(238, 237, 235, 0.5);
+  font-size: 30px;
+  border-radius: 5px;
+  margin: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.speechData {
+  font-size: 24px;
+  padding: 30px;
+}
+
+.Playback {
+  display: flex;
+  justify-content: center;
 }

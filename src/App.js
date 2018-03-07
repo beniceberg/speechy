@@ -27,11 +27,11 @@ class App extends Component {
               component={Home}
             />
             <Route
-              path='/presentation/:presentationId'
+              exact={true} path='/presentation/:presentationId'
               component={Presentation}
             />
             <Route
-              path='/presentation/:presentationId/details'
+              exact={true} path='/presentation/:presentationId/details/:attemptId'
               component={AttemptDetails}
             />
           </Switch>

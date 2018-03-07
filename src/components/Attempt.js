@@ -1,19 +1,22 @@
 import React from 'react';
+import ReactPlayer from 'react-player';
+
 import trash from '../assets/trash.svg';
 import download from '../assets/download.svg';
-import { Redirect, Link } from "react-router-dom";
+
+const renderVideo = (props) => {
+  if(!props.attempt) return null;
+  return (
+    // <ReactPlayer url={props.attempt.videoURL} autoPlay loop muted/>
+    <video style={{width: 220}} src={props.attempt.videoURL} autoPlay loop muted/>
+  )
+}
 
 export const Attempt = (props) => {
-  if (props.stopped) {
-    return <Redirect to={`/presentation/${props.attempt.presentation}/details`} />
-  }
-  console.log(props);
   return (<div className="Attempt">
-    <Link to={`/presentation/${props.attempt.presentation}/details`}>
-      <video
-        style={{width: 200}}
-        src={ (props.attempt) ? props.attempt.videoURL : props.attempt.videoURL} autoPlay loop muted/>
-    </Link>
+    <a href={`/presentation/${props.attempt.presentation}/details/${props.attempt._id}`}>
+      {renderVideo(props)}
+    </a>
     <div>
       <img
         src={trash}
