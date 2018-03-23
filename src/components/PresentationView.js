@@ -7,15 +7,15 @@ import moment from 'moment';
 export const PresentationView = (props) => (
   <div className="PresentationView">
     <Link to={`/presentation/${props.presentation._id}`} presentation={props.presentation}>
-      <h3 className="presTitle">{props.presentation.title}</h3>
-      <div className="date">
-        CREATED ON <br/><br/> <small>{moment(props.presentation.date).format('MMM Do, h:mm')}</small>
-      </div>
+      <small>{moment(props.presentation.date).format('D MMMM')}</small>
+      <p className="presTitle">{props.presentation.title}</p>
+      <p className="author">Ben Iceberg</p>
     </Link>
     <img
       src={trash}
       className="trashLogo"
       alt="logo"
-      onClick={() => props.deletePresentation(props.presentation)} />
+      onClick={() => props.deletePresentation(props.presentation)}
+    />
   </div>
 )

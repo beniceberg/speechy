@@ -1,14 +1,13 @@
 
 .App {
-  background-color: rgb(46, 45, 42);
+  /* background-color: white; */
 }
 
 .navBar {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  height: 100px;
+  height: 70px;
 }
 
 a {
@@ -21,4 +20,5 @@ a {
   padding-left: 50px;
   padding-right: 50px;
   margin: 20px;
+  font-size: 10px;
 }

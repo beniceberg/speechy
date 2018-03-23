@@ -4,11 +4,12 @@ import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import * as Actions from '../actions';
+import { PresentationsList } from '../components/PresentationsList';
 
-import ted from '../assets/ted-presentation.jpg';
+import Home1 from '../assets/Home1.png';
+import Home2 from '../assets/Home2.png';
 import '../styles/Home.css';
 
-import { PresentationsList } from '../components/PresentationsList';
 
 class Home extends React.Component {
 
@@ -67,30 +68,38 @@ class Home extends React.Component {
     return (
       <div className="Home">
         {this.redirect()}
-        <div className="createPres">
-          <input type="text"
-            onChange={this.handleChange}
-            placeholder="Create new presentation ..."
-            value={this.state.newPresTitle}/>
-          <button
-            className="createBtn"
-            onClick={this.createPresentation}>
-            CREATE
-          </button>
-        </div>
-        <div className="quoteDiv">
-          <blockquote className="quote">
-            "Proper Planning and Preparation Prevents Poor Performance"
-            <small className="quoter">-Stephen Keague</small>
-          </blockquote>
-        </div>
-        <img className="homeImage" src={ted} alt={"ted"} width="100%"/>
-        <div>
-          <h3 className="recentPresTitle">RECENT PRESENTATIONS:</h3>
-          <PresentationsList
-            presentations={this.props.presentations}
-            deletePresentation={this.deletePresentation}/>
-        </div>
+        <section className="section1" style={{backgroundImage: `url(${Home1})`}}>
+          <div className="info">
+            <h1 className="infoHeader">Everybody talks but who knows how to speech</h1>
+            <p className="infoParagraph">Create here your new presentation and unlock the art of performing.</p>
+            <div className="createPres">
+              <input type="text"
+                onChange={this.handleChange}
+                placeholder="Name your speech"
+                value={this.state.newPresTitle}
+              />
+              <button
+                className="createBtn"
+                onClick={this.createPresentation}>
+                Create
+              </button>
+            </div>
+          </div>
+        </section>
+        <section className="section2" style={{backgroundImage: `url(${Home2})`}}>
+          <div className="quoteDiv">
+            <blockquote className="quote">
+              <p>"Proper Planning and Preparation Prevents Poor Performance"</p>
+              <small className="quoter">-Stephen Keague</small>
+            </blockquote>
+          </div>
+          <div className="presList">
+            <h3 className="previousPresTitle">Previous Speeches</h3>
+            <PresentationsList
+              presentations={this.props.presentations}
+              deletePresentation={this.deletePresentation}/>
+          </div>
+        </section>
       </div>
     );
   }

@@ -62,6 +62,7 @@ class Presentation extends Component {
             : pres
           newPresText = newPresText.concat(data.alternatives[0].transcript)
           this.props.addTextToPres(newPresText);
+          console.log(data.alternatives);
           // console.log(data.alternatives[0].transcript)
         });
         // stream.on('end')
