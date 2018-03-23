@@ -1,66 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
+@import url('https://fonts.googleapis.com/css?family=Lora');
 
 .Home {
-  background-color: rgb(46, 45, 42);
+  background-color: white;
   height: 100vh;
 }
 
+.section1 {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.section1, .section2 {
+  display: flex;
+  width: 100%;
+  height: 130%;
+  background-size: cover;
+  margin-top: -102px;
+}
+
+.info {
+  margin-top: 25vh;
+  width: 30%;
+  padding: 100px;
+}
+
+.infoHeader {
+  font-size: 40px;
+}
+
+.infoParagraph {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .createPres {
-  margin: 50px;
+  margin-right: 20px;
+  margin-bottom: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
 input {
-  height: 30px;
+  height: 40px;
   width: 300px;
-  border-radius: 5px;
-  margin-right: 10px;
-  padding-left: 10px;
+  background-color: transparent;
+  border: 0px solid;
+  outline: none;
+  padding-left: 15px;
+  padding-bottom: 2px;
   font-size: 16px;
 }
 
 .createBtn {
-  border: 1px solid black;
-  background-color: rgb(219, 226, 217);
-  padding: 10px;
-  border-radius: 3px;
+  background-color: rgb( 4, 251, 124);
+  height: 38px;
+  width: 130px;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  margin-right: 3px;
   font-size: 14px;
+  outline: none;
+  border: 0px solid;
+}
+
+.createBtn:hover {
+  background-color: rgb(8, 222, 111);
+}
+
+.section2 {
+  flex-direction: column;
+  padding-top: 100px;
+  align-items: center;
 }
 
 .quoteDiv {
-  background-color: rgba(183, 191, 195, 0.5);
-  position: fixed;
+  width: 900px;
+  margin-top: 10vh;
 }
 
-.quote , .quoteDiv {
-  position: relative;
-  font-family: 'Sanchez', serif;
-  font-size: 2.4em;
-  line-height: 1.5em;
+.quote {
+  font-family: 'Lora', serif;
+  font-size: 25px;
+  font-weight: bold;
   font-style: italic;
-  &:before {
-      content: '\201C';
-      position: relative;
-      top: 0.25em;
-      left: -0.15em;
-      color: darken(hsl(50, 5, 97), 7%);
-      font-size: 6em;
-      z-index: -1;
-   }
 }
 
 .quoter {
   font-family: 'Noto Sans', sans-serif;
-  font-size: 0.6em;
-  font-weight: 700;
-  color: darken($white, 15%);
+  font-size: 25px;
+  font-weight: 600;
+  color: rgba(73, 72, 72, 0.53);
   float: right;
-  font-size: 30px;
+  font-size: 20px;
 }
 
-.recentPresTitle {
-  padding-left: 50px;
+.presList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.previousPresTitle {
+  font-family: 'Lora', sans-serif;
+  font-weight: bold;
   font-size: 30px;
-  color: rgb(240, 235, 234);
 }
