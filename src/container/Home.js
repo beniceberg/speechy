@@ -68,11 +68,7 @@ class Home extends React.Component {
     return (
       <div className="Home">
         {this.redirect()}
-<<<<<<< HEAD
         <section className="section1">
-=======
-        <section className="section1" style={{backgroundImage: `url(${Home1})`}}>
->>>>>>> 35151d0074a9a2ade8bdd38780e559a99c9ac694
           <div className="info">
             <h1 className="infoHeader">Everybody talks but who knows how to speech</h1>
             <p className="infoParagraph">Create here your new presentation and unlock the art of performing.</p>
@@ -90,11 +86,7 @@ class Home extends React.Component {
             </div>
           </div>
         </section>
-<<<<<<< HEAD
         <section className="section2">
-=======
-        <section className="section2" style={{backgroundImage: `url(${Home2})`}}>
->>>>>>> 35151d0074a9a2ade8bdd38780e559a99c9ac694
           <div className="quoteDiv">
             <blockquote className="quote">
               <p>"Proper Planning and Preparation Prevents Poor Performance"</p>
