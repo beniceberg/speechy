@@ -33,8 +33,10 @@
 
 .info {
   margin-top: 25vh;
-  width: 30%;
-  padding: 100px;
+  justify-content: flex-start;
+  width: 100%;
+  height: 130%;
+  background-size: cover;
 }
 
 .infoHeader {
@@ -83,9 +85,14 @@ input {
   background-color: rgb(8, 222, 111);
 }
 
+.section2 {
+  flex-direction: column;
+  padding-top: 100px;
+  align-items: center;
+}
+
 .quoteDiv {
-  width: 900px;
-  margin-top: 10vh;
+  width: 80%;
 }
 
 .quote {
