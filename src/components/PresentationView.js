@@ -9,7 +9,7 @@ export const PresentationView = (props) => (
     <Link to={`/presentation/${props.presentation._id}`} presentation={props.presentation}>
       <small>{moment(props.presentation.date).format('D MMMM')}</small>
       <p className="presTitle">{props.presentation.title}</p>
-      <p className="author">Ben Iceberg</p>
+      <p className="author">Ben Eisenberg</p>
     </Link>
     <img
       src={trash}

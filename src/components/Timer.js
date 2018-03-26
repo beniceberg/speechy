@@ -12,8 +12,23 @@ const renderTime = (props) => {
   )
 }
 
-export const Timer = (props) => (
-  <div className="Timer">
-    {renderTime(props)}
-  </div>
-)
+export const Timer = (props) => {
+  let pers = (props.elapsed/(props.sessionLength*60)) * 100 + "%";
+  return (
+    <div className="Timer">
+      <section className="timerCtrl">
+        <p>Set length</p>
+        <div className="sessionCtrl">
+          <button className="minus" onClick={() => props.sessionLengthChange(-1)}>-</button>
+          <span className="timeSet">{props.sessionLength}</span>
+          <button className="plus" onClick={() => props.sessionLengthChange(1)}>+</button>
+        </div>
+      </section>
+      <div className="timer">
+        <p className="sessionTitle">Session</p>
+        {renderTime(props)}
+        <span className="fill" style={{height: pers}}></span>
+      </div>
+    </div>
+  )
+}

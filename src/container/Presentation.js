@@ -19,10 +19,12 @@ class Presentation extends Component {
     super(props)
     this.state = {
       recording: false,
-      stopped: false
+      stopped: false,
+      sessionLength: 25,
     }
     this.ticker = 0;
-    this.presentationId = this.props.match.params.presentationId
+    this.fillHeight = '0%';
+    this.presentationId = this.props.match.params.presentationId;
   }
 
   componentDidMount() {
@@ -97,13 +99,25 @@ class Presentation extends Component {
     .then(() => this.fetchPresentation())
   }
 
-  // Timer component related
+  // TIMER component START
   handleTimer = () => {
     // Setting the interval
     (this.state.recording)
       ? clearInterval(this.ticker)
       : this.ticker = setInterval(() => this.props.tick(), 1000)
   }
+
+  // Change default session length
+  sessionLengthChange = (time) => {
+    const session = this.state.sessionLength;
+    if (!this.state.recording){
+      if (session === 1 && time === -1) return;
+      this.setState({
+        sessionLength: session + time
+      })
+    }
+  }
+  // TIMER component END
 
   // Attempt related
   deleteAttempt = (attempt) => {
@@ -117,7 +131,6 @@ class Presentation extends Component {
   // Will handle changing the button between Start and Stop
   changeRecordingState = () => {
     this.setState({
-      ...this.state,
       recording: !this.state.recording
     })
   }
@@ -132,43 +145,49 @@ class Presentation extends Component {
     );
   }
 
-
   render() {
-
     return (
       <div className="Presentation">
-        <div className="presentationTitle">
-          <h1>{this.props.presentation.title}</h1>
-        </div>
-        <div className="practiceTitle">
-          <h3>PRACTICE YOUR SEPEECH YO !</h3>
-        </div>
-        <div className="media">
+        <section className="sectionPres1">
+          <div className="practiceTitle">
+            <h3>Practice your speech yo!</h3>
+          </div>
+          <div className="media">
             <Timer
+              sessionLengthChange={this.sessionLengthChange}
               recording={this.state.recording}
-              elapsed={this.props.counter} />
+              elapsed={this.props.counter}
+              sessionLength={this.state.sessionLength}
+            />
             <Video recording={this.state.recording} />
             <VolumeMeter
               recording={this.state.recording}
-              width="150"
-              height="300" />
-        </div>
-        <button
-          className="startBtn"
-          onClick={this.handleStart}
-          style={{display:this.state.recording ? "none" : "flex"}}>
-          START
-        </button>
-        <button
-          className="stopBtn"
-          id="stop"
-          onClick={this.handleStop}
-          style={{display:this.state.recording ? "flex" : "none"}}>
-            STOP
-        </button>
-        <div>{this.props.speechText.join(' ')}</div>
-        <h3 className="recentAttemptsTitle">Recent Attempts:</h3>
-        {this.renderAttemptsList()}
+              width="50"
+              height="300"
+            />
+          </div>
+          <div className="presentationTitle">
+            <h1>{this.props.presentation.title}</h1>
+          </div>
+          <button
+            className="startBtn"
+            onClick={this.handleStart}
+            style={{display:this.state.recording ? "none" : "flex"}}>
+            Start
+          </button>
+          <button
+            className="stopBtn"
+            id="stop"
+            onClick={this.handleStop}
+            style={{display:this.state.recording ? "flex" : "none"}}>
+            Stop
+          </button>
+          {/* <div>{this.props.speechText.join(' ')}</div> */}
+        </section>
+        <section className="sectionPres2">
+          <p className="recentAttemptsTitle">Previous Attempts</p>
+          {this.renderAttemptsList()}
+        </section>
       </div>
     );
   }

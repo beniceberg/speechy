@@ -1,10 +1,69 @@
 .Timer {
   display: flex;
-  width: 15%;
+  flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+}
+
+.timerCtrl {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px;
+  font-size: 30px;
+}
+
+.sessionCtrl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeSet {
+  margin: 8px 10px 0px 10px;
+  font-size: 26px;
+}
+
+.minus, .plus {
+  background-color: $black;
+  border: none;
+  cursor: pointer;
+  font-size: 2em;
+  outline: none;
+  font-size: 26px;
+}
+
+.timer {
+  margin: 0 auto;
+  text-align: center;
+  width: 120px;
+  height: 120px;
+  font-size: 1em;
+  border: 2px solid rgb( 4, 251, 124);
+  border-radius: 50%;
+  position: relative;
+  z-index: 20;
+  padding: 2px;
+  overflow: hidden;
 }
 
 .time {
   display: flex;
-  font-size: 70px;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.fill {
+  content: '';
+  position: absolute;
+  background: rgb( 4, 251, 124);
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
 }

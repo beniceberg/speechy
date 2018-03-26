@@ -4,9 +4,35 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: rgb(46, 45, 42);
-  flex: 1;
-  padding: 40px;
+}
+
+.sectionPres1 {
+  background-image: url('../assets/Presentation1.png');
+  padding-bottom: 8vh;
+  background-position: bottom center;
+  width: 100%;
+}
+
+.sectionPres1, .sectionPres2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.sectionPres2 {
+  background-image: url('../assets/Home2.png');
+  /* padding-left: 100px; */
+  width: 100%;
+}
+
+.practiceTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  padding: 0;
 }
 
 .media {
@@ -20,23 +46,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:70%;
-  border-radius: 10px;
+  width:60%;
+  height: 33%;
+  box-shadow: 0px 0px 60px -15px rgba(0, 0, 0, 0.15);
 }
 
 .video {
-  width: 90%;
-  height: auto;
-  background-color: rgb(101, 91, 97);
-  background-image: url('../assets/mic-presentation.jpg');
+  width: 100%;
   background-position: center;
-  margin:20px;
   transform: rotateY(180deg);
 }
 
 .VolumeMeter {
   display: flex;
   justify-content: center;
+  align-items: center;
   top: 150px;
   left: 45%;
   margin-left: 20px;
@@ -52,33 +76,45 @@
   justify-content: center;
 }
 
+.presentationTitle {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+}
+
 .startBtn {
-  /* background-color: rgb(157, 198, 98); */
-  background-color: rgb(219, 226, 217);
+  background-color: rgb(4, 251, 124);
+}
+
+.startBtn:hover {
+  background-color: rgb(8, 222, 111);
+}
+
+.startBtn, .stopBtn {
+  height: 38px;
+  width: 130px;
+  font-family: 'Oxygen', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  border: 0px solid;
+  border-radius: 20px;
+  outline: none;
 }
 
 .stopBtn {
-  color: white;
   background-color: rgb(193, 42, 27);
 }
 
-.presentationTitle {
-  font-size: 24px;
-  background-color: rgba(224, 237, 229, 0.7);
-  text-align: center;
-  padding: 12px;
-  border-radius: 5px;
-  overflow-wrap: normal;
-  width: 50%;
-}
-
-.practiceTitle {
-  color: rgb(229, 232, 217);
-  font-size: 18px;
+.stopBtn:hover {
+  background-color: rgb(145, 31, 20);
 }
 
 .recentAttemptsTitle {
-  color:rgb(229, 232, 217);
-  font-size: 30px;
+  margin-top: -30px;
   align-self: flex-start;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 30px;
+  color: white;
 }
