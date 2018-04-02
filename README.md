@@ -28,3 +28,5 @@ Speechy is a full stack open-source project, currently in development, concentra
 ## Screenshots:
 
 ![Speechy-landing](https://github.com/beniceberg/speechy/blob/master/src/assets/screenshot/Screen%20Shot%202018-04-02%20at%2012.54.04.png)
+
+![Speechy-presentation](https://github.com/beniceberg/speechy/blob/master/src/assets/screenshot/Screen%20Shot%202018-04-02%20at%2014.28.05.png)
