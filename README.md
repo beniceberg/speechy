@@ -2,7 +2,7 @@
 
 
 
-## What is Speechy
+## What is Speechy?
 
 Speechy is a full stack open-source project, currently in development, concentrated on improving public speeches and presentations. The platform lets you record your speech, returning a detailed page analysing your content and performance. Keeping track of previous attempts and preparations and providing aid on how to improve.
 
@@ -28,3 +28,5 @@ Speechy is a full stack open-source project, currently in development, concentra
 ## Screenshots:
 
 ![Speechy-landing](https://github.com/beniceberg/speechy/blob/master/src/assets/screenshot/Screen%20Shot%202018-04-02%20at%2012.54.04.png)
+
+![Speechy-presentation](https://github.com/beniceberg/speechy/blob/master/src/assets/screenshot/Screen%20Shot%202018-04-02%20at%2014.28.05.png)
