@@ -1,4 +1,4 @@
-![Screen Shot 2018-04-02 at 12.49.10](https://github.com/beniceberg/speechy/blob/master/src/assets/screenshot/Screen%20Shot%202018-04-02%20at%2012.49.10.png)
+![Speechy](https://github.com/beniceberg/speechy/blob/master/src/assets/screenshot/Screen%20Shot%202018-04-02%20at%2012.49.10.png)
 
 
 
@@ -27,3 +27,4 @@ Speechy is a full stack open-source project, currently in development, concentra
 
 ## Screenshots:
 
+![Speechy-landing](https://github.com/beniceberg/speechy/blob/master/src/assets/screenshot/Screen%20Shot%202018-04-02%20at%2012.54.04.png)
