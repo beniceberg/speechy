@@ -37,7 +37,7 @@
 
 .media {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
 }
@@ -63,8 +63,7 @@
   align-items: center;
   top: 150px;
   left: 45%;
-  margin-left: 20px;
-  width: 15%;
+  width: 20%;
 }
 
 .startBtn, .stopBtn {
